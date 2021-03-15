@@ -9,7 +9,7 @@ export class Document {
     @Prop([String])
     tags: string[];
 }
-
+    
 export const DocumentSchema = SchemaFactory.createForClass(Document);
 
 export interface Idocument extends document {
