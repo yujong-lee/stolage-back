@@ -13,10 +13,9 @@ export class DocumentService {
             tags: documentData.tags,
         })
         newDocument.save()
-        return 'OK'
     }
 
-    async findAll(id: string): Promise<Idocument[]>{
+    findAll(id: string): Promise<Idocument[]>{
         return this.DocumentModel.find({tags: {$elemMatch: {$eq: id}}}).exec()
     }
 }

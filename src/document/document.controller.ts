@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Get, Param } from '@nestjs/common';
 import { DocumentService } from './document.service';
 import { DocumentType } from '../entity/document.entity';
-import { doc } from 'prettier';
+
 
 @Controller('document')
 export class DocumentController {
@@ -13,12 +13,16 @@ export class DocumentController {
     }
 
     @Get(':id')
-    findAll(@Param('id') id: string) {
-        this.documentService.findAll(id).then(function(docs) {
-            let result = ' '
-            docs.forEach(element => {
-                console.log(element.name)
-            });
+    async findAll(@Param('id') id: string) {
+        let result = {}
+
+        await this.documentService.findAll(id).then(function(docs) {
+            if (docs.length === 0) {
+                result = {message: "No document matched"}
+            }
+            else result = {message: "success", data: docs}
         }); 
+        
+        return result
     }
 }
