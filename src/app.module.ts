@@ -5,10 +5,12 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { key } from './config/dev';
 import { DocumentModule } from './document/document.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { FileHandleController } from './file-handle/file-handle.controller';
+import { FileHandleModule } from './file-handle/file-handle.module';
 
 @Module({
-  imports: [MongooseModule.forRoot(key), DocumentModule, MulterModule.register({dest: './uploads'})],
-  controllers: [AppController],
+  imports: [MongooseModule.forRoot(key), DocumentModule, MulterModule.register({dest: './uploads'}), FileHandleModule],
+  controllers: [AppController, FileHandleController],
   providers: [AppService],
-})
+})  
 export class AppModule {}
