@@ -16,4 +16,8 @@ export class FileHandleService {
         })
         newFile.save()
     }
+
+    getFiles(selected: string[]) {
+        return this.FileModel.find({tags: { $all: selected } }).exec()
+    }
 }

@@ -4,9 +4,10 @@ import { key } from '../config/dev';
 import { MulterModule } from '@nestjs/platform-express';
 import { FileHandleController } from '../file-handle/file-handle.controller';
 import { FileHandleService } from './file-handle.service';
+import { FileSchema } from './schema/file.schema'
 
 @Module({
-    imports: [MongooseModule.forRoot(key), MulterModule.register({dest: './uploads'}), FileHandleModule],
+    imports: [MongooseModule.forFeature([{name: 'File', schema: FileSchema}]), MulterModule.register({dest: './uploads'})],
     controllers: [FileHandleController],
     providers: [FileHandleService],
 })

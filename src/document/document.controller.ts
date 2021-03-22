@@ -25,4 +25,9 @@ export class DocumentController {
         
         return result
     }
+
+    @Get('init')
+    init() {
+        this.documentService.init()
+    }
 }

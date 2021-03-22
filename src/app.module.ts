@@ -10,7 +10,7 @@ import { FileHandleModule } from './file-handle/file-handle.module';
 
 @Module({
   imports: [MongooseModule.forRoot(key), DocumentModule, MulterModule.register({dest: './uploads'}), FileHandleModule],
-  controllers: [AppController, FileHandleController],
+  controllers: [AppController],
   providers: [AppService],
 })  
 export class AppModule {}
