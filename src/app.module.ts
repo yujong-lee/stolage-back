@@ -7,9 +7,10 @@ import { DocumentModule } from './document/document.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { FileHandleController } from './file-handle/file-handle.controller';
 import { FileHandleModule } from './file-handle/file-handle.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
-  imports: [MongooseModule.forRoot(key), DocumentModule, MulterModule.register({dest: './uploads'}), FileHandleModule],
+  imports: [MongooseModule.forRoot(key), DocumentModule, MulterModule.register({dest: './uploads'}), FileHandleModule, TagModule],
   controllers: [AppController],
   providers: [AppService],
 })  

@@ -17,6 +17,14 @@ export class DocumentController {
         this.documentService.dfs()
     }
     
+
+    @Get('/update')
+    updateTag() {
+        this.documentService.updateTag()
+        return {success: true}
+    }
+
+
     @Get(':id')
     async findAll(@Param('id') id: string) {
         let result = {}
@@ -30,4 +38,5 @@ export class DocumentController {
         
         return result
     }
+
 }

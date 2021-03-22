@@ -4,10 +4,11 @@ import { Model } from 'mongoose';
 import { Idocument, Document } from '../schema/document.schema'
 import {DocumentType} from '../entity/document.entity';
 import * as fs from 'fs'
+import { TagService } from 'src/tag/tag.service';
 
 @Injectable()
 export class DocumentService {
-    constructor(@InjectModel('Document') private DocumentModel: Model<Idocument>) {}
+    constructor(@InjectModel('Document') private DocumentModel: Model<Idocument>, private readonly TagService: TagService) {}
     create(documentData: DocumentType) {
         const newDocument = new this.DocumentModel({
             name: documentData.name,
@@ -47,5 +48,15 @@ export class DocumentService {
                 newDocument.save()
             });
         });
+    }
+
+    async updateTag() {
+        const files = await this.DocumentModel.find({}).exec()
+        files.forEach((file) => {
+            const tags = file.tags
+            tags.forEach((tag, index, tags) => {
+                this.TagService.update(tag, tags, index)
+            })
+        })
     }
 }
