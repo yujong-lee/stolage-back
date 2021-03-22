@@ -52,11 +52,15 @@ export class DocumentService {
 
     async updateTag() {
         const files = await this.DocumentModel.find({}).exec()
-        files.forEach((file) => {
+        
+        for(const file of files) {
             const tags = file.tags
-            tags.forEach(async (tag, index, tags) => {
-                await this.TagService.update(tag, tags, index)
-            })
-        })
+
+            let i = 0;
+            for (const tag of tags) {
+                await this.TagService.update(tag, tags, i)
+                i += 1
+            }
+        }
     }
 }
