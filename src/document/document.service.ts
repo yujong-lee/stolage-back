@@ -14,13 +14,14 @@ export class DocumentService {
             tags: documentData.tags,
         })
         newDocument.save()
+        console.log(1)
     }
 
     findAll(id: string): Promise<Idocument[]>{
         return this.DocumentModel.find({tags: {$elemMatch: {$eq: id}}}).exec()
     }
 
-    init() {
+    dfs() {
         const regex = /(\d{4})(\d{2})(\d{2})-(\d)/
 
         const tagHelper = (filename: string, regex: RegExp): string[] => {

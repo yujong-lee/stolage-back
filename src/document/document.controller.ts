@@ -12,6 +12,11 @@ export class DocumentController {
         this.documentService.create(documentData)
     }
 
+    @Get('/init')
+    dfs() {
+        this.documentService.dfs()
+    }
+    
     @Get(':id')
     async findAll(@Param('id') id: string) {
         let result = {}
@@ -24,10 +29,5 @@ export class DocumentController {
         }); 
         
         return result
-    }
-
-    @Get('init')
-    init() {
-        this.documentService.init()
     }
 }
