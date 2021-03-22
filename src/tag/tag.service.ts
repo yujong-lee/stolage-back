@@ -11,10 +11,12 @@ export class TagService {
     async update(tagName: string, selected: string[], i: number) {
         let tag = await this.TagModel.findOne({name: tagName}).exec()
         const rel = [...selected.slice(0,i), ...selected.slice(i+1)]
+        console.log("init")
         if(tag !== null) {
             console.log("if 안", tag)
             const newRelated = [...new Set(...rel, ...tag.related)]
-            await this.TagModel.updateOne({_id: tag._id}, {$set: {related: newRelated}})
+            tag.related = newRelated
+            await tag.save()
         }
         else {
             console.log("if 밖", tag)
@@ -24,5 +26,6 @@ export class TagService {
             })
             await newTag.save()
         }
+        console.log("saved")
     }
 }

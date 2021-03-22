@@ -54,8 +54,8 @@ export class DocumentService {
         const files = await this.DocumentModel.find({}).exec()
         files.forEach((file) => {
             const tags = file.tags
-            tags.forEach((tag, index, tags) => {
-                this.TagService.update(tag, tags, index)
+            tags.forEach(async (tag, index, tags) => {
+                await this.TagService.update(tag, tags, index)
             })
         })
     }
