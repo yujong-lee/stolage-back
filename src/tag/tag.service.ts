@@ -19,7 +19,7 @@ export class TagService {
             await tag.save()
         }
         else {
-            console.log("if 밖", tag)
+            console.log("else 안", tag)
             const newTag = new this.TagModel({
                 name: tagName,
                 related: rel
