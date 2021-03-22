@@ -26,6 +26,6 @@ export class TagService {
             })
             await newTag.save()
         }
-        console.log("saved")
+        console.log("saved" + i)
     }
 }
