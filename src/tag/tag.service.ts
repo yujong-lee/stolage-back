@@ -15,7 +15,8 @@ export class TagService {
         if(tag !== null) {
             console.log("if 안")
             const newRelated = [...new Set([...rel, ...tag.related])]
-            await this.TagModel.updateOne({_id: tag._id}, {$set: {related: newRelated}})
+            tag.related = newRelated
+            await tag.save()
         }
         else {
             console.log("else 안")
