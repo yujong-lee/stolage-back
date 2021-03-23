@@ -17,11 +17,16 @@ export class DocumentController {
         this.documentService.dfs()
     }
     
-
     @Get('/update')
     updateTag() {
         this.documentService.updateTag()
         return {success: true}
+    }
+
+    @Post('/search')
+    searchTag(@Body('selected') selected: string[]) {
+        return this.documentService.searchTag(selected)
+
     }
 
 

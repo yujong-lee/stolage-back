@@ -16,7 +16,7 @@ export class TagService {
             console.log("if 안")
             const newRelated = [...new Set([...rel, ...tag.related])]
             tag.related = newRelated
-            await tag.save()
+            tag.save()
         }
         else {
             console.log("else 안")
@@ -24,7 +24,7 @@ export class TagService {
                 name: tagName,
                 related: rel
             })
-            await newTag.save()
+            newTag.save()
         }
         console.log("saved", i)
     }
