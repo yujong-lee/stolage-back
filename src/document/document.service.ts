@@ -52,7 +52,7 @@ export class DocumentService {
 
     async updateTag() {
         const files = await this.DocumentModel.find({}).exec()
-        
+        console.time('update')
         for(const file of files) {
             const tags = file.tags
 
@@ -62,5 +62,6 @@ export class DocumentService {
                 i += 1
             }
         }
+        console.timeEnd('update')
     }
 }
