@@ -1,34 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Idocument, Document } from '../schema/document.schema'
-import {DocumentType} from '../entity/document.entity';
-import * as fs from 'fs'
+import { Idocument } from '../schema/document.schema'
 import { TagService } from 'src/tag/tag.service';
+import * as fs from 'fs'
 
 @Injectable()
 export class DocumentService {
-    constructor(@InjectModel('Document') private DocumentModel: Model<Idocument>, private readonly TagService: TagService) {}
-    create(documentData: DocumentType) {
-        const newDocument = new this.DocumentModel({
-            name: documentData.name,
-            tags: documentData.tags,
-        })
-        newDocument.save()
-        console.log(1)
-    }
-
-    findAll(id: string): Promise<Idocument[]>{
-        return this.DocumentModel.find({tags: {$elemMatch: {$eq: id}}}).exec()
-    }
+    constructor(@InjectModel('Document') private DocumentModel: Model<Idocument>, 
+                private readonly TagService: TagService) {}
 
     searchTag(selected: string[]) {
         return this.DocumentModel.find({tags: {$all: selected}}).exec()
     }
 
-    dfs() {
+    initTag() {
         const regex = /(\d{4})(\d{2})(\d{2})-(\d)/
-
+        const path = '../etc/testData'
+        
         const tagHelper = (filename: string, regex: RegExp): string[] => {
             const match = filename.match(regex)
             const ret: string[] = []
@@ -39,11 +28,10 @@ export class DocumentService {
                 ret.push('문항: ' + Number(match[3]) + '번')
                 ret.push('정답: ' + Number(match[4]) + '번')
             }
-
             return ret
         }
 
-        fs.readdir('../../data', (err, files) => {
+        fs.readdir(path, (err, files) => {
             files.forEach(file => {
                 const newDocument = new this.DocumentModel({
                     name: file,
@@ -56,7 +44,7 @@ export class DocumentService {
 
     async updateTag() {
         const files = await this.DocumentModel.find({}).exec()
-        console.time('update')
+        //console.time('update')
         for(const file of files) {
             const tags = file.tags
 
@@ -66,6 +54,6 @@ export class DocumentService {
                 i += 1
             }
         }
-        console.timeEnd('update')
+        //console.timeEnd('update')
     }
 }

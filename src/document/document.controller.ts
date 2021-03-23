@@ -1,20 +1,21 @@
-import { Body, Controller, Post, Get, Param } from '@nestjs/common';
+import { Body, Controller, Post, Get } from '@nestjs/common';
+import { TagService } from 'src/tag/tag.service';
 import { DocumentService } from './document.service';
-import { DocumentType } from '../entity/document.entity';
 
-
-@Controller('document')
+@Controller('demo')
 export class DocumentController {
-    constructor(private readonly documentService: DocumentService) {}
-    
-    @Post('/create')
-    create(@Body() documentData: DocumentType) {
-        this.documentService.create(documentData)
-    }
+    constructor(private readonly documentService: DocumentService,
+                private readonly tagService: TagService) {}
 
     @Get('/init')
-    dfs() {
-        this.documentService.dfs()
+    initTag() {
+        this.documentService.initTag()
+        return {success: true}
+    }
+
+    @Get('/data')
+    allTag() {
+        return this.tagService.allTags()
     }
     
     @Get('/update')
@@ -26,22 +27,5 @@ export class DocumentController {
     @Post('/search')
     searchTag(@Body('selected') selected: string[]) {
         return this.documentService.searchTag(selected)
-
     }
-
-
-    @Get(':id')
-    async findAll(@Param('id') id: string) {
-        let result = {}
-
-        await this.documentService.findAll(id).then(function(docs) {
-            if (docs.length === 0) {
-                result = {message: "No document matched"}
-            }
-            else result = {message: "success", data: docs}
-        }); 
-        
-        return result
-    }
-
 }
