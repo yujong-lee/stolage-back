@@ -31,13 +31,6 @@ export class TagService {
 
     async returnAll() {
         const tags = await this.TagModel.find({}).exec()
-        let ret = []
-        for(const tag of tags) {
-            ret.push({
-                        self: tag.name,
-                        related: tag.related
-                    })
-        }
-        return ret
+        return tags
     }
 }
