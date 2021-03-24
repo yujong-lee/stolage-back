@@ -25,8 +25,10 @@ export class TagService {
         }
     }
 
-    async allTags() {
+    async allDoc() {
         const tags = await this.TagModel.find({}).exec()
         return tags
     }
+
+    
 }

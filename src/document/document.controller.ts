@@ -13,9 +13,14 @@ export class DocumentController {
         return {success: true}
     }
 
-    @Get('/data')
+    @Get('/alltag')
     allTag() {
-        return this.tagService.allTags()
+        return this.documentService.alltag()
+    }
+
+    @Get('/data')
+    allDoc() {
+        return this.tagService.allDoc()
     }
     
     @Get('/update')
