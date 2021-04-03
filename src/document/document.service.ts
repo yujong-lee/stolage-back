@@ -42,19 +42,23 @@ export class DocumentService {
         });
     }
 
-    async updateTag() {
-        const files = await this.DocumentModel.find({}).exec()
-        //console.time('update')
+    async updateTag(from: string, to: string) {
+        const files = await this.DocumentModel.find({tags: {$elemMatch: {$eq: from}}}).exec()
         for(const file of files) {
-            const tags = file.tags
-
-            let i = 0;
-            for (const tag of tags) {
-                await this.TagService.update(tag, tags, i)
-                i += 1
-            }
+            let oldTags = file.tags
+            file.tags = oldTags.map(_ => _ == from ? to : _)
+            file.save()
         }
-        //console.timeEnd('update')
+    }
+
+    async deleteTag(tag: string) {
+        const files = await this.DocumentModel.find({tags: {$elemMatch: {$eq: tag}}}).exec()
+        for(const file of files) {
+            let oldTags = file.tags
+            file.tags = oldTags.filter(_ => _!=tag)
+            file.save()
+        }
+        return
     }
 
     async alltag() {
@@ -66,6 +70,6 @@ export class DocumentService {
             ret = [...new Set([...ret, ...tags])]
             //console.log(ret)
         }
-        return ret 
+        return ret
     }
 }

@@ -23,9 +23,15 @@ export class DocumentController {
         return this.tagService.allDoc()
     }
     
-    @Get('/update')
-    updateTag() {
-        this.documentService.updateTag()
+    @Post('/update')
+    updateTag(@Body('from') from:string, @Body('to') to:string) {
+        this.documentService.updateTag(from, to)
+        return {success: true}
+    }
+
+    @Post('/delete')
+    deleteTag(@Body('tag') tag: string) {
+        this.documentService.deleteTag(tag)
         return {success: true}
     }
 
