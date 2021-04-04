@@ -16,7 +16,7 @@ export class DocumentService {
 
     initTag() {
         const regex = /(\d{4})(\d{2})(\d{2})-(\d)/
-        const path = '../etc/testData'
+        const path = 'src/etc/testData'
         
         const tagHelper = (filename: string, regex: RegExp): string[] => {
             const match = filename.match(regex)
