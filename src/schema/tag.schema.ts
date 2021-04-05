@@ -1,19 +1,20 @@
 import { Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
-import { Document } from 'mongoose'
+import { Document, Schema as mSchema, Types } from 'mongoose'
+import { Group, Igroup } from "./group.schema";
+
 
 @Schema()
 export class Tag {
     @Prop({required: true})
     name: string;
 
-    @Prop({required:true, type:[String]})
-    related: string[];
+    @Prop({required:true, type:[mSchema.Types.ObjectId], ref: 'Group'})
+    groups: Group[];
 }
 
 export const TagSchema = SchemaFactory.createForClass(Tag);
 
 export interface Itag extends Document {
-    id: string
     name: string
-    related: string[]
+    groups: string[] | Igroup[]
 }

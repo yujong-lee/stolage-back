@@ -66,10 +66,14 @@ export class DocumentService {
         let ret = []
         for(const file of files) {
             const tags = file.tags
-            console.log(tags)
             ret = [...new Set([...ret, ...tags])]
             //console.log(ret)
         }
         return ret
+    }
+
+    async allFile() {
+        const files = await this.DocumentModel.find({}).exec()
+        return files
     }
 }
