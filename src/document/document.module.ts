@@ -12,6 +12,7 @@ import { TagModule } from 'src/tag/tag.module';
             TagModule
           ],
   controllers: [DocumentController],
-  providers: [DocumentService]
+  providers: [DocumentService],
+  exports: [DocumentService]
 })
 export class DocumentModule {}
