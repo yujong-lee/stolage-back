@@ -10,20 +10,21 @@ import { DocumentService } from 'src/document/document.service';
 export class FileService {
     constructor(@InjectModel('File') private FileModel: Model<IFile>, 
                 private readonly TagService: TagService, 
-                /*private readonly DocumentService:DocumentService*/ ) {}
+                private readonly DocumentService:DocumentService ) {}
     
-    // async init() {
-    //     const files = await this.DocumentService.allFile()
-    //     for (const file of files) {
-    //         let InewFile = {
-    //             name: file.name,
-    //             tags: []
-    //         }
-    //         for (const tag of file.tags) {
-    //             InewFile.tags.push(await this.TagService.findOneTagId(tag))
-    //         }
-    //         const newFile = new this.FileModel(InewFile)
-    //         newFile.save
-    //     }
-    // }
+    async init() {
+        const files = await this.DocumentService.allFile()
+        for (const file of files) {
+            const InewFile = {
+                name: file.name,
+                tags: []
+            }
+            for (const tag of file.tags) {
+                InewFile.tags.push(await this.TagService.findOneTagId(tag))
+            }
+            console.log(InewFile)
+            const newFile = new this.FileModel(InewFile)
+            newFile.save()
+        }
+    }
 }

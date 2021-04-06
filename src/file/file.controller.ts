@@ -7,9 +7,9 @@ export class FileController {
     constructor(private readonly FileService: FileService,
         private readonly TagService: TagService) {}
     
-    // @Get('/init')
-    // init() {
-    //     this.fileService.init()
-    //     return {success: true}
-    // }
+    @Get('/init')
+    init() {
+        this.FileService.init();
+        return {success: true}
+    }
 }

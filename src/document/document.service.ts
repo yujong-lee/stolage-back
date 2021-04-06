@@ -61,19 +61,20 @@ export class DocumentService {
         return
     }
 
-    async alltag() {
-        const files = await this.DocumentModel.find({}).exec()
-        let ret = []
-        for(const file of files) {
-            const tags = file.tags
-            ret = [...new Set([...ret, ...tags])]
-            //console.log(ret)
-        }
-        return ret
-    }
-
     async allFile() {
         const files = await this.DocumentModel.find({}).exec()
         return files
     }
+
+
+    async alltagInDoc() {
+        const files = await this.DocumentModel.find({}).exec()
+         let ret = []
+         for(const file of files) {
+             const tags = file.tags
+             ret = [...new Set([...ret, ...tags])]
+             //console.log(ret)
+         }
+         return ret
+     }
 }

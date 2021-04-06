@@ -34,4 +34,3 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 dev.ts
-/src/etc/testData

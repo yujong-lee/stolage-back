@@ -18,6 +18,10 @@ export class DocumentController {
         return this.TagService.allTagNames()
     }
 
+    @Get('/alltagwheninit')
+    allTagWhenInit() {
+        return this.DocumentService.alltagInDoc();
+    }
     
     @Post('/update')
     updateTag(@Body('from') from:string, @Body('to') to:string) {
