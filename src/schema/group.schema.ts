@@ -14,5 +14,4 @@ export const GroupSchema = SchemaFactory.createForClass(Group);
 export interface Igroup extends Document {
     id: string
     name: string
-    
 }

@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { GroupService } from 'src/group/group.service';
 import { Itag } from 'src/schema/tag.schema';
+import InputType from 'src/entity/groupTestInput'
 
 @Injectable()
 export class TagService {
-    constructor(@InjectModel('Tag') private TagModel: Model<Itag>) {}
+    constructor(@InjectModel('Tag') private TagModel: Model<Itag>,
+    private readonly GroupService: GroupService) {}
     
     async allTagNames() {
         const tags = await this.TagModel.find({}).exec()
@@ -17,11 +20,12 @@ export class TagService {
         return tag._id
     }
 
-    init(tags: string[]) {
-        for (const tag of tags) {
+    async init(tags: InputType) {
+        for (const tag in tags) {
+            const groups = await this.GroupService.findOneGroupId(tags[tag])
             const newTag = new this.TagModel({
                 name: tag,
-                groups: []
+                groups: groups
             })
             newTag.save()
         }
