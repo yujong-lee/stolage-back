@@ -38,7 +38,7 @@ export class TagService {
 
     async searchByGroup(selectedGroup: string[]) {
         const selectedID = await this.GroupService.findAllGroupId(selectedGroup)
-        const ret = await this.TagModel.find({groups: {$all: selectedID}}).exec()
+        const ret = await this.TagModel.find({groups: {$all: selectedID}}).populate('groups').exec()
         return ret
     }
 }

@@ -8,7 +8,7 @@ export class Tag {
     @Prop({required: true})
     name: string;
 
-    @Prop({required:true, type:[mSchema.Types.ObjectId], ref: 'Group'})
+    @Prop({required:true, type: [{type: mSchema.Types.ObjectId, ref: 'Group'}] })
     groups: Group[];
 }
 

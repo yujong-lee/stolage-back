@@ -7,7 +7,7 @@ export class File {
     @Prop({required: true})
     name: string;
 
-    @Prop({required: true, type: [mSchema.Types.ObjectId], ref:'Tag'})
+    @Prop({required: true, type: [{type: mSchema.Types.ObjectId, ref:'Tag'}] })
     tags: Tag[];
 }
     
