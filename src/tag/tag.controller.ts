@@ -10,4 +10,10 @@ export class TagController {
         this.TagService.init(tags);
         return {success: true}
     }
+
+    @Post('/search')
+    async searchByGroup(@Body('selected') selected: string[]) {
+        const ret = await this.TagService.searchByGroup(selected)
+        return ret
+    }
 }

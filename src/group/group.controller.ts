@@ -10,4 +10,9 @@ export class GroupController {
         this.GroupService.init();
         return {success: true}
     }
+
+    @Get('/all')
+    allGroup() {
+        return this.GroupService.AllGroupName()
+    }
 }

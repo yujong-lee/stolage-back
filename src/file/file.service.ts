@@ -27,4 +27,9 @@ export class FileService {
             newFile.save()
         }
     }
+
+    async searchByTag(selectedTag: string[]) {
+        const selectedID = await this.TagService.findAllTagId(selectedTag)
+        return this.FileModel.find({tags: {$all: selectedID}}).exec()
+    }
 }

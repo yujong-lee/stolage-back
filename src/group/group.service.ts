@@ -17,6 +17,11 @@ export class GroupService {
         }
     }
 
+    async AllGroupName() {
+        const groups = await this.GroupModel.find({}).exec()
+        return groups.map(group => group.name)
+    }
+
     async findAllGroupId(groupNames: string[]) {
         const groups = await this.GroupModel
                                 .find({"name": { $in: groupNames }} )

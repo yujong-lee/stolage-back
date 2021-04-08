@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { FileService } from './file.service';
 import { TagService } from 'src/tag/tag.service';
 
@@ -11,5 +11,10 @@ export class FileController {
     init() {
         this.FileService.init();
         return {success: true}
+    }
+
+    @Post('/search')
+    searchByTags(@Body('selected') selectedTags: string[]) {
+        return this.FileService.searchByTag(selectedTags)
     }
 }
