@@ -24,8 +24,14 @@ export class GroupService {
 
     async findAllGroupId(groupNames: string[]) {
         const groups = await this.GroupModel
-                                .find({"name": { $in: groupNames }} )
-                                .exec()
+                                .find({name: { $in: groupNames }} )
+                                
         return groups.map(group => group._id)
+    }
+
+    async updateGroup(from: string, to: string) {
+        const group = await this.GroupModel.findOne({name: from})
+        group.name = to
+        group.save()
     }
 }

@@ -41,4 +41,11 @@ export class TagService {
         const ret = await this.TagModel.find({groups: {$all: selectedID}}).populate('groups').exec()
         return ret
     }
+
+    async updateTag(from: string, to: string) {
+        const tag = await this.TagModel.findOne({name: from})
+                                
+        tag.name = to
+        tag.save()
+    }
 }

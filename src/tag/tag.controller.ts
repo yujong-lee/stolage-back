@@ -16,4 +16,10 @@ export class TagController {
         const ret = await this.TagService.searchByGroup(selected)
         return ret
     }
+
+    @Post('/update')
+    async update(@Body('from') from:string, @Body('to') to:string) {
+        this.TagService.updateTag(from, to)
+        return {success: true}
+    }
 }
