@@ -39,4 +39,10 @@ export class DocumentController {
     searchTag(@Body('selected') selected: string[]) {
         return this.DocumentService.searchTag(selected)
     }
+
+    @Post('/searchByGroup')
+    async searchByGroup(@Body('selected') selected: string[]) {
+        const ret = await this.TagService.searchByGroup(selected)
+        return ret
+    }
 }

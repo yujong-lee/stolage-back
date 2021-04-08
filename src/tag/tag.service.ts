@@ -22,7 +22,7 @@ export class TagService {
 
     async init(tags: InputType) {
         for (const tag in tags) {
-            const groups = await this.GroupService.findOneGroupId(tags[tag])
+            const groups = await this.GroupService.findAllGroupId(tags[tag])
             const newTag = new this.TagModel({
                 name: tag,
                 groups: groups
@@ -30,4 +30,9 @@ export class TagService {
             newTag.save()
         }
     } 
+
+    async searchByGroup(selectedGroup: string[]) {
+        const selectedID = await this.GroupService.findAllGroupId(selectedGroup)
+        return this.TagModel.find({groups: {$all: selectedID}}).exec()
+    }
 }
