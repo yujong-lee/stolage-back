@@ -48,4 +48,10 @@ export class TagService {
         tag.name = to
         tag.save()
     }
+
+    async isGroupInTag(tag: string, group: string) {
+        const tagObj = await this.TagModel.findOne({name: tag}).populate('groups')
+        const isInclude = tagObj.groups.map(_ => _.name).includes(group)
+        return isInclude
+    }
 }
